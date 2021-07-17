@@ -1,9 +1,4 @@
-import 'package:designcode/constants.dart';
-import 'package:designcode/screens/sidebar_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'components/sidebar_row.dart';
-import 'model/sidebar.dart';
 
 void main() {
   runApp(MyApp());
