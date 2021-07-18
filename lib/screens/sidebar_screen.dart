@@ -2,9 +2,9 @@ import 'package:designcode/components/sidebar_row.dart';
 import 'package:designcode/model/sidebar.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+import 'package:designcode/constants.dart';
 
-class SiderbarScreen extends StatelessWidget {
+class SideBarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
