@@ -1,4 +1,5 @@
 import 'package:designcode/constants.dart';
+import 'package:designcode/screens/sidebar_screen.dart';
 import 'package:flutter/material.dart';
 import 'components/home_screen_navbar.dart';
 import 'components/lists/explore_course_list.dart';
@@ -15,13 +16,54 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Container(
-          color: kBackgroundColor,
-          child: SafeArea(
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+
+  late Animation<Offset> sidebarAnimation;
+
+  late AnimationController sidebarAnimationController;
+
+  @override
+  void initState() {
+
+    super.initState();
+    sidebarAnimationController = AnimationController(
+        vsync: this,
+        duration: Duration(milliseconds: 250)
+    );
+    sidebarAnimation = Tween<Offset> (
+      begin: Offset(-1, 0),
+      end: Offset(0, 0),
+    ).animate(
+      CurvedAnimation(
+          parent: sidebarAnimationController,
+          curve: Curves.easeInOut,
+      )
+    );
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: kBackgroundColor,
+        child: Stack(children: [
+          SafeArea(
             child: Column(
               children: [
-                HomeScreenNavBar(),
+                HomeScreenNavBar(triggerAnimation: () {
+                  sidebarAnimationController.forward();
+                }),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
@@ -38,12 +80,8 @@ class MyApp extends StatelessWidget {
                 ),
                 RecentCourseList(),
                 Padding(
-                  padding: EdgeInsets.only(
-                      left: 20,
-                      right: 20,
-                      top: 25,
-                      bottom: 16
-                  ),
+                  padding:
+                      EdgeInsets.only(left: 20, right: 20, top: 25, bottom: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -55,11 +93,15 @@ class MyApp extends StatelessWidget {
               ],
             ),
           ),
-        ),
+          SlideTransition(
+            position: sidebarAnimation,
+            child: SafeArea(
+              child: SideBarScreen(),
+              bottom: false,
+            ),
+          ),
+        ]),
       ),
     );
   }
 }
-
-
-

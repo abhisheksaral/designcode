@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class HomeScreenNavBar extends StatelessWidget {
+
+  HomeScreenNavBar({required this.triggerAnimation});
+
+  final Function()? triggerAnimation;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,7 +17,7 @@ class HomeScreenNavBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SideBarButton(),
+          SideBarButton(triggerAnimation: triggerAnimation,),
           SearchFieldWidget(),
           Icon(
             Icons.notifications,
