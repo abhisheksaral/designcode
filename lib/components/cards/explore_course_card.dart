@@ -2,9 +2,6 @@ import 'package:designcode/model/course.dart';
 import 'package:flutter/material.dart';
 import 'package:designcode/constants.dart';
 
-
-
-
 class ExploreCourseCard extends StatelessWidget {
 
   ExploreCourseCard({required this.course});

@@ -4,6 +4,9 @@ import 'package:designcode/components/lists/recent_course_list.dart';
 import 'package:designcode/screens/sidebar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:designcode/constants.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+import 'continue_watching_screen.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -55,76 +58,78 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return Scaffold(
       body: Container(
         color: kBackgroundColor,
-        child: Stack(children: [
-          SafeArea(
-            child: Column(
-              children: [
-                HomeScreenNavBar(triggerAnimation: () {
-                  setState(() {
-                    sidebarHidden = !sidebarHidden;
-                  });
-                  sidebarAnimationController.forward();
-                }),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text('Recent', style: kLargeTitleStyle),
-                      SizedBox(height: 5),
-                      Text('23 Courses, more coming', style: kSubtitleStyle)
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                RecentCourseList(),
-                Padding(
-                  padding:
-                  EdgeInsets.only(left: 20, right: 20, top: 25, bottom: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text('Explore', style: kTitle1Style),
-                    ],
-                  ),
-                ),
-                ExploreCourseList(),
-              ],
-            ),
-          ),
-          IgnorePointer(
-            ignoring: sidebarHidden,
-            child: Stack(
-                children: [
-                  FadeTransition(
-                    opacity: fadeAnimation,
-                    child: GestureDetector(
-                      child: Container(
-                        color: Color.fromRGBO(36, 38, 41, 0.4),
-                        height: MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
+        child: Stack(
+            children: [
+              SafeArea(
+                child: Column(
+                  children: [
+                    HomeScreenNavBar(triggerAnimation: () {
+                      setState(() {
+                        sidebarHidden = !sidebarHidden;
+                      });
+                      sidebarAnimationController.forward();
+                    }),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text('Recent', style: kLargeTitleStyle),
+                          SizedBox(height: 5),
+                          Text('23 Courses, more coming', style: kSubtitleStyle)
+                        ],
                       ),
-                      onTap: () {
-                        setState(() {
-                          sidebarHidden = !sidebarHidden;
-                        });
-                        sidebarAnimationController.reverse();
-                      },
                     ),
-                  ),
-                  SlideTransition(
-                    position: sidebarAnimation,
-                    child: SafeArea(
-                      child: SideBarScreen(),
-                      bottom: false,
+                    SizedBox(
+                      height: 20,
                     ),
-                  ),
-                ]
-            ),
-          ),
-        ]),
+                    RecentCourseList(),
+                    Padding(
+                      padding:
+                      EdgeInsets.only(left: 20, right: 20, top: 25, bottom: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text('Explore', style: kTitle1Style),
+                        ],
+                      ),
+                    ),
+                    ExploreCourseList(),
+                  ],
+                ),
+              ),
+              ContinueWatchingScreen(),
+              IgnorePointer(
+                ignoring: sidebarHidden,
+                child: Stack(
+                    children: [
+                      FadeTransition(
+                        opacity: fadeAnimation,
+                        child: GestureDetector(
+                          child: Container(
+                            color: Color.fromRGBO(36, 38, 41, 0.4),
+                            height: MediaQuery.of(context).size.height,
+                            width: MediaQuery.of(context).size.width,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              sidebarHidden = !sidebarHidden;
+                            });
+                            sidebarAnimationController.reverse();
+                          },
+                        ),
+                      ),
+                      SlideTransition(
+                        position: sidebarAnimation,
+                        child: SafeArea(
+                          child: SideBarScreen(),
+                          bottom: false,
+                        ),
+                      ),
+                    ]
+                ),
+              ),
+            ]),
       ),
     );
   }
