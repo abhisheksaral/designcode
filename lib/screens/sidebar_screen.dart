@@ -1,7 +1,6 @@
 import 'package:designcode/components/sidebar_row.dart';
 import 'package:designcode/model/sidebar.dart';
 import 'package:flutter/material.dart';
-
 import 'package:designcode/constants.dart';
 
 class SideBarScreen extends StatelessWidget {
