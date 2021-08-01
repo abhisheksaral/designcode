@@ -51,7 +51,7 @@ class _RecentCourseListState extends State<RecentCourseList> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => CourseScreen(course: recentCourses[index],),
+                      builder: (context) => CourseScreen(course: recentCourses[index]),
                       fullscreenDialog: true,
                     ),
                   );
